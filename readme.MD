@@ -53,6 +53,7 @@ jitsi-census -s 192.168.0.10 -p 3445 -P conferences,participants
 * Jitsi: https://jitsi.org/
 * Jitsi Videobridge config: https://github.com/jitsi/jitsi-videobridge/blob/master/doc/rest.md
 * Jitsi Colibri: https://github.com/jitsi/jitsi-videobridge/blob/master/doc/rest-colibri.md
+* XEP-0340: COnferences with LIghtweight BRIdging (COLIBRI): https://xmpp.org/extensions/xep-0340.html
 
 ## Limitations
 
