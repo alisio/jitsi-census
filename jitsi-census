@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+#-*- coding:utf-8 -*-
+
+import requests
+import sys
+import json
+import getopt
+
+versao= '0.9'
+server = "localhost"
+port = "8081"
+sys.tracebacklimit = 0
+
+
+def exibir_help():
+    print(
+    '''
+
+Usage: jitsi-census [-s <JITSI_IP_ADDRESS>] [-p <COLIBRI_TCP_PORT>] [-P <JITSI_PARAMETER_TO_SHOW>]
+
+An app to connect to a Jitsi server and list statistical information using Colibri REST API
+
+Options:
+  -s, --server      IP Address of the Jitsi server. Default: localhost
+  -p, --port        TCP port listening to the requests. Default: 8081
+  -P, --parameter   Parameter stats to show. Default: show all available parameters
+
+Exemples:
+ List all stats from localhosts
+
+   # jitsi-census
+
+List all stats from server 192.168.0.10
+
+  # jitsi-census -s 192.168.0.10
+
+Show number of 'conferences' from the server 192.168.0.10 listening on port 8080
+
+  # jitsi-census -s 192.168.0.10 -p 8080 -P conferences
+
+Show stats for parameters conferences and participants from the server 192.168.0.10 listening on port 3445
+
+  # jitsi-census -s 192.168.0.10 -p 3445 -P conferences,participants
+
+AUTHOR: Antonio Alisio de Meneses Cordeiro
+
+    '''
+    )
+    quit()
+
+options, remainder = getopt.getopt(sys.argv[1:], 's:p:P:h', ['server=',
+                                                         'port=',
+                                                         'parameters=',
+                                                         'help',
+                                                         ])
+
+for opt, arg in options:
+    if opt in ('-s', '--server'):
+        server = arg
+    elif opt in ('-p', '--port'):
+        port = arg
+    elif opt in ('-P', '--parameters'):
+        parameters = arg.split(',')
+    elif opt in ('-h', '--help'):
+        exibir_help()
+
+try:
+    response = requests.get("http://" + server + ":" + port + "/colibri/stats")
+except:
+    print ("Connection failed to server " + server + ":" + port + ".")
+    quit()
+
+try:
+    parameters
+except NameError:
+    print ("Connecting to server " + server + ", na port " + port + ".")
+    parameters = []
+    for parameter in response.json():
+        print(str(parameter) + ': ' + str(response.json()[parameter]))
+else:
+    if len(parameters) > 1:
+        print ("Connecting to server " + server + ", na port " + port + ".")
+        for parameter in parameters:
+            print(str(parameter) + ': ' + str(response.json()[parameter]))
+    else:
+        print(response.json()[parameters[0]])
