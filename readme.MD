@@ -17,8 +17,7 @@ jitsi-census [-s <JITSI_IP_ADDRESS>] [-p <COLIBRI_TCP_PORT>] [-P <JITSI_PARAMETE
 *  `-s, --server`      IP Address of the Jitsi Videobridge server. Default: localhost
 *  `-p, --port`        TCP port listening to the requests. Default: 8081
 *  `-p, --port`        TCP port listening to the requests. Default: 8081
-*  `-P, --parameter`   Parameter stats to show. Default: show all available parameters
-*  -P, --parameter   Parameter stats to show. Default: show all available parameters
+*  `-P, --parameter`   Parameter stats to show (comma separated). Default: show all available parameters
 
 # Examples
 
